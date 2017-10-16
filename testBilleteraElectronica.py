@@ -21,8 +21,8 @@ class TestBilleteraElectronica(unittest.TestCase):
         self.assertEqual(self.billetera.saldo(), 0,"La billetera deberia tener saldo 0")
         self.assertEqual(len(self.billetera.debitos), 0,"La billetera no deberia tener debitos")
         self.assertEqual(len(self.billetera.creditos), 0,"La billetera no deberia tener debitos")
-        self.assertEqual(self.billetera.nombreOwner, "Rafael","Error con los nombres del due√±o de la billetera")
-        self.assertEqual(self.billetera.apellidoOwner, "Cisneros","Error con los apellidos del due√±o de la billetera")
+        self.assertEqual(self.billetera.nombreOwner, "Rafael","Error con los nombres del due§o de la billetera")
+        self.assertEqual(self.billetera.apellidoOwner, "Cisneros","Error con los apellidos del due§o de la billetera")
     
     def testSaldoBilletera0(self):
         self.assertEquals(0, self.billetera.saldo(), "La billetera deberia tener saldo 0")
