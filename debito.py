@@ -8,7 +8,7 @@ Created on 14 oct. 2017
 
 class Debito(object):
     def __init__(self, m, f, id):
-        monto = m
-        fecha = f
-        idEstablecimiento = id
+        self.monto = m
+        self.fecha = f
+        self.idEstablecimiento = id
         

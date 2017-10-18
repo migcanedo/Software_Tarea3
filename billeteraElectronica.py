@@ -19,10 +19,16 @@ class BilleteraElectronica:
         self.pin = p
         self.debitos = []
         self.creditos = []
-        self.saldo = 0
 
     def saldo(self):
-        return self.saldo
+        s = 0
+        for c in self.creditos:
+            s+= c.monto
+            
+        for d in self.debitos:
+            s -= d.monto
+            
+        return s
 
     def recargar(self, *args): # args es un objeto Credito o un conjunto de elementos [monto, fecha, idEstablecimiento]
         if len(args) == 3:
@@ -33,21 +39,23 @@ class BilleteraElectronica:
             print("Error en la cantidad de argumentos")
 
         self.creditos.append(recarga)
-        self.saldo = self.saldo + recarga.monto
-
+        
     def consumir(self, *args): # args es un objeto Credito o un conjunto de elementos [monto, fecha, idEstablecimiento, pin]
-        if len(args) == 3:
+        consumo = Debito(0, "19/07/96", 1)
+        if len(args) == 4:
             if args[3] == self.pin: 
                 consumo = Debito(args[0], args[1], args[2])
             else:
+                return ("PIN incorrecto, no se logro realizar la transaccion.")
+        elif len(args) == 2:
+            if args[1] == self.pin: 
+                consumo = args[0]
+            else:
                 print("PIN incorrecto, no se logro realizar la transaccion.")
-        elif len(args) == 1:
-            consumo = args[0]
         else:
             print("Error en la cantidad de argumentos")
-
-        if self.saldo >= consumo.mont:
+        
+        if self.saldo() >= consumo.monto:
             self.debitos.append(consumo)
-            self.saldo = self.saldo - consumo.mont
         else:
-            print("No dispone del saldo suficiente para cubrir el consumo.")
+            return ("No dispone del saldo suficiente para cubrir el consumo.")
