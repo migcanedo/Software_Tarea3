@@ -8,25 +8,25 @@ Created on 13 oct. 2017
 import unittest
 
 from billeteraElectronica import BilleteraElectronica
-from credito import Consumo
-from debito import Recarga
+from credito import Credito
+from debito import Debito
 
 class TestBilleteraElectronica(unittest.TestCase):
     def setUp(self):
-        self.billetera = BilleteraElectronica(1,"Rafael","Cisneros",24759502,123)
+        self.billetera = BilleteraElectronica(1,"Rafael", "Cisneros", 24759502, 123)
     def tearDown(self):
         self.billetera = None
 
-     def testBilletera(self):
-        self.assertEqual(self.billetera.saldo, 0,"La billetera deberia tener saldo 0")
-        self.assertEqual(len(self.billetera.debitos), 0,"La billetera no deberia tener debitos")
-        self.assertEqual(len(self.billetera.debitos), 0,"La billetera no deberia tener debitos")
+    def testBilletera(self):
+        self.assertEqual(self.billetera.saldo, 0, "La billetera deberia tener saldo 0")
+        self.assertEqual(len(self.billetera.debitos), 0, "La billetera no deberia tener debitos")
+        self.assertEqual(len(self.billetera.debitos), 0, "La billetera no deberia tener debitos")
         self.assertEqual(self.billetera.nombreOwner, "Rafael","Error con los nombres del dueño de la billetera")
         self.assertEqual(self.billetera.apellidoOwner, "Cisneros","Error con los apellidos del dueño de la billetera")
         self.assertEqual(self.billetera.ciOwner, 24759502, "Error en la cedula del dueño de la billetera")
 
     def testSaldoBilletera0(self):
-        self.assertEquals(self.billetera.saldo(),0, "La billetera deberia tener saldo 0")
+        self.assertEquals(self.billetera.saldo(), 0, "La billetera deberia tener saldo 0")
 
     def testConsumir(self):
         saldoActual = self.billetera.saldo

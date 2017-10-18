@@ -6,7 +6,7 @@ Created on 14 oct. 2017
 @author: Miguel Canedo 13-10214
 '''
 
-class Recarga(object):
+class Debito(object):
     def __init__(self, m, f, id):
         monto = m
         fecha = f
