@@ -25,9 +25,9 @@ class TestBilleteraElectronica(unittest.TestCase):
         self.assertEquals(self.billetera.saldo(), 0, "La billetera deberia tener saldo 0")
         
     def testMismoConsumoQueRecarga(self):
-        recarga1 = Credito(122.00, 13/10/2017, 1)
+        recarga1 = Credito(122.00, "13/10/2017", 1)
         self.billetera.recargar(recarga1)
-        consumo1 = Debito(122.00, 13/10/2017, 1)
+        consumo1 = Debito(122.00, "13/10/2017", 1)
         self.billetera.consumir(consumo1, 123)
         self.assertEqual(self.billetera.saldo(), 0, "Error en el nuevo saldo total")
     
@@ -36,9 +36,9 @@ class TestBilleteraElectronica(unittest.TestCase):
         self.assertEqual(self.billeteraRara.apellidoOwner, "Pe¤ar d„","Error con los apellidos del dueÃ±o de la billetera")
 
     def testPINInvalido(self):
-        recarga1 = Credito(122.00, 13/10/2017, 1)
+        recarga1 = Credito(122.00, "13/10/2017", 1)
         self.billetera.recargar(recarga1)
-        consumo1 = Debito(122.00, 13/10/2017, 1)
+        consumo1 = Debito(122.00, "13/10/2017", 1)
         self.billetera.consumir(consumo1, 321) 
  
     
@@ -46,9 +46,9 @@ class TestBilleteraElectronica(unittest.TestCase):
     #           Esquina           #
     ###############################
     def testNombreRaroYPINIncorrecto(self):
-        recarga1 = Credito(122.00, 13/10/2017, 1)
+        recarga1 = Credito(122.00, "13/10/2017", 1)
         self.billeteraRara.recargar(recarga1)
-        consumo1 = Debito(122.00, 13/10/2017, 1)
+        consumo1 = Debito(122.00, "13/10/2017", 1)
         self.billeteraRara.consumir(consumo1, 321)
         self.assertEqual(self.billeteraRara.saldo(), 122, "Error en el nuevo saldo total")
     
@@ -56,7 +56,7 @@ class TestBilleteraElectronica(unittest.TestCase):
         self.assertEquals(self.billeteraRara.saldo(), 0, "La billetera deberia tener saldo 0")
     
     def testSaldo0YPINIncorrecto(self):
-        consumo1 = Debito(122.00, 13/10/2017, 1)
+        consumo1 = Debito(122.00, "13/10/2017", 1)
         self.billetera.consumir(consumo1, 321)
         self.assertEqual(self.billetera.saldo(), 0, "Error en el nuevo saldo total")
     
@@ -73,9 +73,9 @@ class TestBilleteraElectronica(unittest.TestCase):
     
     def testConsumir(self):
         cantidadActualDebitos = len(self.billetera.debitos)
-        recarga1 = Credito(122.00, 13/10/2017, 1)
+        recarga1 = Credito(122.00, "13/10/2017", 1)
         self.billetera.recargar(recarga1)
-        consumo1 = Debito(22.00, 13/10/2017, 1)
+        consumo1 = Debito(22.00, "13/10/2017", 1)
         self.billetera.consumir(consumo1, 123)
         self.assertEqual(len(self.billetera.debitos), cantidadActualDebitos+1, "Error en la cantidad total de debitos")
         self.assertEqual(self.billetera.saldo(), 100, "Error en el nuevo saldo total")
@@ -84,26 +84,26 @@ class TestBilleteraElectronica(unittest.TestCase):
     def testRecargar(self):
         saldoActual = self.billetera.saldo()
         cantidadActualCreditos = len(self.billetera.creditos)
-        recarga = Credito(100.00, 13/10/2017, 1)
+        recarga = Credito(100.00, "13/10/2017", 1)
         self.billetera.recargar(recarga)
         self.assertEqual(len(self.billetera.creditos), cantidadActualCreditos+1, "Error en la cantidad total de creditos")
         self.assertEqual(self.billetera.saldo(), saldoActual + recarga.monto, "Error en el nuevo saldo total")
 
     def testSaldo(self):
         saldoActual = self.billetera.saldo()
-        recarga1 = Credito(122.00, 13/10/2017, 1)
+        recarga1 = Credito(122.00, "13/10/2017", 1)
         self.billetera.recargar(recarga1)
-        recarga2 = Credito(982.00, 13/10/2017, 1)
+        recarga2 = Credito(982.00, "13/10/2017", 1)
         self.billetera.recargar(recarga2)
-        consumo1 = Debito(23.00, 13/10/2017, 1)
+        consumo1 = Debito(23.00, "13/10/2017", 1)
         self.billetera.consumir(consumo1, 123)
-        consumo2 = Debito(642.00, 13/10/2017, 1)
+        consumo2 = Debito(642.00, "13/10/2017", 1)
         self.billetera.consumir(consumo2, 123)
-        consumo3 = Debito(132.00, 13/10/2017, 1)
+        consumo3 = Debito(132.00, "13/10/2017", 1)
         self.billetera.consumir(consumo3, 123)
-        consumo4 = Debito(111.00, 13/10/2017, 1)
+        consumo4 = Debito(111.00, "13/10/2017", 1)
         self.billetera.consumir(consumo4, 123)
-        recarga3 = Credito(323.00, 13/10/2017, 1)
+        recarga3 = Credito(323.00, "13/10/2017", 1)
         self.billetera.recargar(recarga3)
         self.assertEqual(self.billetera.saldo(), (saldoActual + recarga1.monto + recarga2.monto + recarga3.monto - consumo1.monto -
                                                 consumo2.monto - consumo3.monto - consumo4.monto), "Error en el nuevo saldo total")
@@ -112,23 +112,23 @@ class TestBilleteraElectronica(unittest.TestCase):
     #           Malicia           #
     ###############################
     def testConsumirMasDeLoQueSeRecargo(self):
-        recarga = Credito(50.00, 13/10/2017, 1)
+        recarga = Credito(50.00, "13/10/2017", 1)
         self.billetera.recargar(recarga)
-        consumo = Debito(100.00, 13/10/2017, 1)
+        consumo = Debito(100.00, "13/10/2017", 1)
         self.billetera.consumir(consumo, 123)
         self.assertEqual(self.billetera.saldo(), 50, "Error en el nuevo saldo total")
     
     def testConsumirConSaldoInsuficiente(self):
         cantidadActualDebitos = len(self.billetera.debitos)
-        consumo = Debito(100.00, 13/10/2017, 1)
+        consumo = Debito(100.00, "13/10/2017", 1)
         self.billetera.consumir(consumo, 123)
         self.assertEqual(len(self.billetera.debitos), cantidadActualDebitos, "Error en la cantidad total de debitos")
         self.assertEqual(self.billetera.saldo(), 0, "Error en el nuevo saldo total")
   
     def testConsumoAntesRecarga(self):
-        consumo = Debito(100.00, 13/10/2017, 1)
+        consumo = Debito(100.00, "13/10/2017", 1)
         self.billetera.consumir(consumo, 123)
-        recarga = Credito(50.00, 13/10/2017, 1)
+        recarga = Credito(50.00, "13/10/2017", 1)
         self.billetera.recargar(recarga)
         self.assertEqual(self.billetera.saldo(), 50, "Error en el nuevo saldo total")
         
