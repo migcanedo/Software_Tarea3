@@ -25,8 +25,6 @@ class TestBilleteraElectronica(unittest.TestCase):
         self.assertEquals(self.billetera.saldo(), 0, "La billetera deberia tener saldo 0")
         
     def testMismoConsumoQueRecarga(self):
-        saldoActual = self.billetera.saldo()
-        cantidadActualDebitos = len(self.billetera.debitos)
         recarga1 = Credito(122.00, 13/10/2017, 1)
         self.billetera.recargar(recarga1)
         consumo1 = Debito(122.00, 13/10/2017, 1)
@@ -36,6 +34,13 @@ class TestBilleteraElectronica(unittest.TestCase):
     def testOwnerBilleteraConCaracteresEspeciales(self):
         self.assertEqual(self.billeteraRara.nombreOwner, "A'd-@lb3rto", "Error con los nombres del due√±o de la billetera")
         self.assertEqual(self.billeteraRara.apellidoOwner, "Pe§ar†dÑ","Error con los apellidos del due√±o de la billetera")
+
+    def testPINInvalido(self):
+        recarga1 = Credito(122.00, 13/10/2017, 1)
+        self.billetera.recargar(recarga1)
+        consumo1 = Debito(122.00, 13/10/2017, 1)
+        self.billetera.consumir(consumo1, 321) 
+ 
     
     ###############################
     #           Esquina           #
@@ -119,9 +124,13 @@ class TestBilleteraElectronica(unittest.TestCase):
         self.billetera.consumir(consumo, 123)
         self.assertEqual(len(self.billetera.debitos), cantidadActualDebitos, "Error en la cantidad total de debitos")
         self.assertEqual(self.billetera.saldo(), 0, "Error en el nuevo saldo total")
-    
-    def testPINInvalido(self):
-        return
+  
+    def testConsumoAntesRecarga(self):
+        consumo = Debito(100.00, 13/10/2017, 1)
+        self.billetera.consumir(consumo, 123)
+        recarga = Credito(50.00, 13/10/2017, 1)
+        self.billetera.recargar(recarga)
+        self.assertEqual(self.billetera.saldo(), 50, "Error en el nuevo saldo total")
         
     if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
